@@ -28,10 +28,10 @@ function Regester() {
 
   function regester(event){
     event.preventDefault();
-    axios.post(`${process.env.REACT_APP_API_URL}/login`,{username,email,password})
+    axios.post(`${process.env.REACT_APP_API_URL}/regester`,{username,email,password})
     
     .then(response=>{
-      console.log("Login success:", response.data);
+      console.log("Registered successfully", response.data);
       navigate("/home")
     }).catch(err=>console.log(err))
   }
