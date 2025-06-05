@@ -31,7 +31,7 @@ function Regester() {
     axios.post("http://localhost:5174/regester",{username,email,password})
     
     .then(response=>{
-      console.log("Registered successfully", response.data);
+      console.log(`${process.env.REACT_APP_API_URL}/regester`, response.data);
       navigate("/home")
     }).catch(err=>console.log(err))
   }
