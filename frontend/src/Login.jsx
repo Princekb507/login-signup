@@ -14,7 +14,7 @@ function Login() {
     setErrorMsg("");
 
     axios
-      .post("http://localhost:5174/login", { email, password })
+      .post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
       .then((response) => {
         console.log("Login success:", response.data);
         // You can store user info or token here (e.g. localStorage)
