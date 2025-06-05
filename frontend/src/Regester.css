@@ -1,0 +1,97 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,300;1,300&display=swap');
+
+
+*{
+    padding:0;
+    margin:0;
+    box-size:border-box;
+    font-family: "Raleway", sans-serif;
+    font-weight: 300;
+}
+/* Container for the whole form */
+.all {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 40px 35px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+  }
+  
+  .all h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    letter-spacing: 1.2px;
+    color: #1f2937;
+    position: relative;
+  }
+  
+  .all h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #4f46e5;
+    margin: 12px auto 0;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+  
+  .all h1:hover::after {
+    width: 100px;
+  }
+  
+  /* Inputs */
+  .all input[type="text"],
+  .all input[type="email"],
+  .all input[type="password"] {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 25px;
+    border: 2px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .all input[type="text"]::placeholder,
+  .all input[type="email"]::placeholder,
+  .all input[type="password"]::placeholder {
+    color: #9ca3af;
+    font-weight: 500;
+  }
+  
+  .all input[type="text"]:focus,
+  .all input[type="email"]:focus,
+  .all input[type="password"]:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 8px #4f46e5aa;
+    outline: none;
+  }
+  
+  /* Submit button */
+  .all button[type="submit"] {
+    width: 100%;
+    padding: 16px 0;
+    background: linear-gradient(90deg, #6366f1, #4f46e5);
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    letter-spacing: 1.1px;
+  }
+  
+  .all button[type="submit"]:hover {
+    background: linear-gradient(90deg, #4f46e5, #6366f1);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.7);
+  }
+  
