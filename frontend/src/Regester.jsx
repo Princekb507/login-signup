@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate,Link } from 'react-router-dom'; 
 import axios from 'axios';
 import './Regester.css';
 
@@ -58,7 +58,9 @@ function Regester() {
         </div>
       </form>
       </div>
-      
+      <p  className='linking'>
+        {"Already have an account?"} <Link to="/login">Login here</Link>
+      </p>
     </div>
   )
 }

@@ -70,6 +70,36 @@ app.post("/regester",(req,res)=>{
 })
 })
 
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Please provide email and password" });
+  }
+
+  const findUser = "SELECT * FROM users WHERE email = ?";
+  db.query(findUser, [email], (err, results) => {
+    if (err) return res.status(500).json({ error: "Database error" });
+
+    if (results.length === 0) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const user = results[0];
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) return res.status(500).json({ error: "Error comparing passwords" });
+
+      if (!isMatch) {
+        return res.status(401).json({ error: "Invalid email or password" });
+      }
+
+      // Password matched
+      return res.json({ message: "Login successful", userId: user.id, username: user.username });
+    });
+  });
+});
+
+
 app.listen(5174,()=>{
   console.log("we are listening")
 })
