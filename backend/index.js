@@ -1,9 +1,11 @@
+import express from 'express'
+import cors from "cors";
+import mysql from "mysql2";
+import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'
 dotenv.config()
-import express from 'express'
-import mysql from 'mysql2'
-import cors from 'cors'
-import bcrypt from 'bcryptjs'
+
 
 const app = express()
 
@@ -21,6 +23,9 @@ const db = mysql.createConnection({
   queueLimit: 0      
 })
 
+const salt=5
+const JWT_SECRET=process.env.JWT_SECRET||"secretKey";
+
 const tab = `CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
@@ -36,7 +41,7 @@ db.query(tab, (err, result) => {
   }
 })
 
-const salt=5
+
 
 app.post("/regester",(req,res)=>{
   const sql ="INSERT INTO users(username,email,password)  VALUES(?,?,?)"
@@ -64,7 +69,12 @@ app.post("/regester",(req,res)=>{
         console.error(err)
         return res.status(500).json({ error: "Database error" })
       }
-      return res.json({ message: "User registered successfully", userId: result.insertId })
+
+    const userId=result.userId
+    const token=jwt.sign({id:userId,username},JWT_SECRET,{expiresIn:"1hr"})
+
+
+      return res.json({ message: "User registered successfully", token })
     })
   })
 })
@@ -75,6 +85,7 @@ app.post("/login", (req, res) => {
 
   if (!email || !password) {
     return res.status(400).json({ error: "Please provide email and password" });
+
   }
 
   const findUser = "SELECT * FROM users WHERE email = ?";
@@ -92,12 +103,18 @@ app.post("/login", (req, res) => {
       if (!isMatch) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
-
+       
+      const token = jwt.sign({id:user.id, username:user.username},JWT_SECRET,{expiresIn:"1hr"})
       // Password matched
-      return res.json({ message: "Login successful", userId: user.id, username: user.username });
+      return res.json({ message: "Login successful",token });
     });
   });
 });
+
+app.post("/logout",(req,res)=>{
+
+  res.json({ message: 'Logged out successfully' });
+})
 
 
 app.listen(5174,()=>{
