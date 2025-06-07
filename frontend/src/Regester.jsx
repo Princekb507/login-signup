@@ -30,7 +30,7 @@ function Regester() {
   function regester(event){
     event.preventDefault();
     setErrorMsg("");
-    axios.post("http://localhost:5174/regester",{username,email,password})
+    axios.post(`${process.env.REACT_APP_API_URL}/regester`,{username,email,password})
     
     .then(response=>{
       console.log("Registered successfully", response.data);
