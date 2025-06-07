@@ -17,7 +17,7 @@ function Login() {
       .post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
       .then((response) => {
         console.log("Login success:", response.data);
-        // You can store user info or token here (e.g. localStorage)
+        localStorage.setItem('authToken',response.data.token)
         navigate("/home"); // redirect to home page after login
       })
       .catch((error) => {

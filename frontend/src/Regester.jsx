@@ -1,6 +1,6 @@
-import React,{useState} from 'react'
-import { useNavigate,Link } from 'react-router-dom'; 
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 import './Regester.css';
 
 function Regester() {
@@ -23,17 +23,27 @@ function Regester() {
     const [username,setUsername]=useState("")
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
+    const [errorMsg, setErrorMsg] = useState("");
 
     const navigate=useNavigate()
 
   function regester(event){
     event.preventDefault();
-    axios.post(`${process.env.REACT_APP_API_URL}/regester`,{username,email,password})
+    setErrorMsg("");
+    axios.post("http://localhost:5174/regester",{username,email,password})
     
     .then(response=>{
       console.log("Registered successfully", response.data);
       navigate("/home")
-    }).catch(err=>console.log(err))
+    })
+      .catch(err => {
+        console.error(err);
+        if (err.response && err.response.data && err.response.data.error) {
+          setErrorMsg(err.response.data.error);
+        } else {
+          setErrorMsg("Registration failed. Please try again.");
+        }
+    })
   }
 
     
@@ -65,4 +75,4 @@ function Regester() {
   )
 }
 
-export default Regester
+export default Regester;
